@@ -1,5 +1,5 @@
-#ifndef CLANG_TOOL_CONSUMER_HPP
-#define CLANG_TOOL_CONSUMER_HPP
+#ifndef CONSUMER_HPP
+#define CONSUMER_HPP
 
 #include <clang/AST/ASTContext.h>
 #include <clang/AST/ASTConsumer.h>

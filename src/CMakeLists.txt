@@ -16,6 +16,9 @@ set(CLANG_TOOL_SRC
         actions/frontendaction.cc        
         consumer/consumer.cc        
         utils/utils.cc  
+        
+        finder/finder.cc
+        finder/functioncallfinder.cc
 )
 
 add_executable(clang-tool ${CLANG_TOOL_SRC})

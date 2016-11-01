@@ -1,5 +1,5 @@
-#ifndef CLANG_TOOL_FRONTEND_ACTION_HPP
-#define CLANG_TOOL_FRONTEND_ACTION_HPP
+#ifndef FRONTEND_ACTION_HPP
+#define FRONTEND_ACTION_HPP
 
 #include <llvm/ADT/StringRef.h>
 #include <clang/Frontend/FrontendActions.h>

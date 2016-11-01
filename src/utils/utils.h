@@ -1,5 +1,5 @@
-#ifndef CLANG_TOOL_UTILS_H
-#define CLANG_TOOL_UTILS_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <fstream>
 #include <vector>

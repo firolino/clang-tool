@@ -5,7 +5,7 @@ XConsumer::XConsumer(clang::ASTContext &context)
 
 void XConsumer::HandleTranslationUnit(clang::ASTContext &context)
 {
-	rewriter.setSourceMgr(context.getSourceManager(), context.getLangOpts());
+    rewriter.setSourceMgr(context.getSourceManager(), context.getLangOpts());
 
     auto buffer = rewriter.getRewriteBufferFor(context.getSourceManager().getMainFileID());
 

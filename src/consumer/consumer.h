@@ -12,14 +12,14 @@ namespace clang
 
 class XConsumer : public clang::ASTConsumer 
 {
-	private:
-		
+    private:
+    
         clang::Rewriter rewriter;
 
-	public:
+    public:
 
         explicit XConsumer(clang::ASTContext &context);
-		virtual void HandleTranslationUnit(clang::ASTContext &context) override;
+        virtual void HandleTranslationUnit(clang::ASTContext &context) override;
 };
 
 #endif

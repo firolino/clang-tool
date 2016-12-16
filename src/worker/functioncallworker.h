@@ -1,7 +1,7 @@
-#ifndef FUNCTIONCALL_FINDER_HPP
-#define FUNCTIONCALL_FINDER_HPP
+#ifndef FUNCTIONCALL_WORKER_HPP
+#define FUNCTIONCALL_WORKER_HPP
 
-#include "finder.h"
+#include "worker.h"
 
 #include <string>
 #include <vector>
@@ -12,7 +12,7 @@ namespace clang
     class raw_ostream;
 }
 
-class FunctionCallFinder : public Finder
+class FunctionCallWorker : public Worker
 {
     private:
         
@@ -20,9 +20,9 @@ class FunctionCallFinder : public Finder
         
     public:
 
-        explicit FunctionCallFinder(clang::ASTContext &context);
+        explicit FunctionCallWorker(clang::ASTContext &context);
 
-        virtual void startSearch() override;
+        virtual void start() override;
         virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
         virtual void print(clang::raw_ostream &stream) override;
 };

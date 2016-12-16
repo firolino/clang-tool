@@ -1,14 +1,14 @@
-#include "functioncallfinder.h"
+#include "functioncallworker.h"
 
 #include <clang/AST/Decl.h>
 #include <clang/AST/Expr.h>
 #include <clang/ASTMatchers/ASTMatchers.h>
 
-FunctionCallFinder::FunctionCallFinder(clang::ASTContext &context)
-    : Finder(context)
+FunctionCallWorker::FunctionCallWorker(clang::ASTContext &context)
+    : Worker(context)
 {}
 
-void FunctionCallFinder::startSearch()
+void FunctionCallWorker::start()
 {
     using namespace clang::ast_matchers;
 
@@ -20,7 +20,7 @@ void FunctionCallFinder::startSearch()
     functionFinder.matchAST(context);
 }
 
-void FunctionCallFinder::run(const clang::ast_matchers::MatchFinder::MatchResult &result)
+void FunctionCallWorker::run(const clang::ast_matchers::MatchFinder::MatchResult &result)
 {
     using namespace clang;
 
@@ -36,7 +36,7 @@ void FunctionCallFinder::run(const clang::ast_matchers::MatchFinder::MatchResult
     }
 }
 
-void FunctionCallFinder::print(clang::raw_ostream &stream)
+void FunctionCallWorker::print(clang::raw_ostream &stream)
 {
     for(auto &fn : functions)
         stream << fn << "(..)\n";

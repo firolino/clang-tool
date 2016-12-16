@@ -1,5 +1,5 @@
-#ifndef FINDER_HPP
-#define FINDER_HPP
+#ifndef WORKER_HPP
+#define WORKER_HPP
 
 #include <clang/ASTMatchers/ASTMatchFinder.h>
 
@@ -9,7 +9,7 @@ namespace clang
     class raw_ostream;
 }
 
-class Finder : public clang::ast_matchers::MatchFinder::MatchCallback
+class Worker : public clang::ast_matchers::MatchFinder::MatchCallback
 {
     protected:
 
@@ -17,9 +17,9 @@ class Finder : public clang::ast_matchers::MatchFinder::MatchCallback
 
     public:
 
-        explicit Finder(clang::ASTContext &context);
+        explicit Worker(clang::ASTContext &context);
         
-        virtual void startSearch() = 0;
+        virtual void start() = 0;
         virtual void print(clang::raw_ostream &stream) = 0;
 };
 

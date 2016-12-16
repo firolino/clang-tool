@@ -1,7 +1,7 @@
-#ifndef FUNCTIONCALL_WORKER_HPP
-#define FUNCTIONCALL_WORKER_HPP
+#ifndef FUNCTIONCALL_TRANSFORMER_HPP
+#define FUNCTIONCALL_TRANSFORMER_HPP
 
-#include "worker.h"
+#include "transformer.h"
 
 #include <string>
 #include <vector>
@@ -13,7 +13,7 @@ namespace clang
     class Rewriter;
 }
 
-class FunctionCallWorker : public Worker
+class FunctionCallTransformer : public Transformer
 {
     private:
         
@@ -21,7 +21,7 @@ class FunctionCallWorker : public Worker
         
     public:
 
-        explicit FunctionCallWorker(clang::ASTContext &context, clang::Rewriter &rewriter);
+        explicit FunctionCallTransformer(clang::ASTContext &context, clang::Rewriter &rewriter);
 
         virtual void start() override;
         virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);

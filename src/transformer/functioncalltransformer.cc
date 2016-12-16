@@ -1,15 +1,15 @@
-#include "functioncallworker.h"
+#include "functioncalltransformer.h"
 
 #include <clang/AST/Decl.h>
 #include <clang/AST/Expr.h>
 #include <clang/ASTMatchers/ASTMatchers.h>
 #include <clang/Rewrite/Core/Rewriter.h>
 
-FunctionCallWorker::FunctionCallWorker(clang::ASTContext &context, clang::Rewriter &rewriter)
-    : Worker(context, rewriter)
+FunctionCallTransformer::FunctionCallTransformer(clang::ASTContext &context, clang::Rewriter &rewriter)
+    : Transformer(context, rewriter)
 {}
 
-void FunctionCallWorker::start()
+void FunctionCallTransformer::start()
 {
     using namespace clang::ast_matchers;
 
@@ -21,7 +21,7 @@ void FunctionCallWorker::start()
     functionFinder.matchAST(context);
 }
 
-void FunctionCallWorker::run(const clang::ast_matchers::MatchFinder::MatchResult &result)
+void FunctionCallTransformer::run(const clang::ast_matchers::MatchFinder::MatchResult &result)
 {
     using namespace clang;
 
@@ -37,7 +37,7 @@ void FunctionCallWorker::run(const clang::ast_matchers::MatchFinder::MatchResult
     }
 }
 
-void FunctionCallWorker::print(clang::raw_ostream &stream)
+void FunctionCallTransformer::print(clang::raw_ostream &stream)
 {
     for(auto &fn : functions)
         stream << fn << "(..)\n";

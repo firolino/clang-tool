@@ -1,6 +1,6 @@
 #include "consumer.h"
 
-#include "../worker/functioncallworker.h"
+#include "../transformer/functioncalltransformer.h"
 
 XConsumer::XConsumer(clang::ASTContext &context)
 {}
@@ -9,10 +9,10 @@ void XConsumer::HandleTranslationUnit(clang::ASTContext &context)
 {
     rewriter.setSourceMgr(context.getSourceManager(), context.getLangOpts());
     
-    FunctionCallWorker fnworker(context, rewriter);
+    FunctionCallTransformer fntransformer(context, rewriter);
         
-    fnworker.start();
-    fnworker.print(llvm::outs());
+    fntransformer.start();
+    fntransformer.print(llvm::outs());
 
     auto buffer = rewriter.getRewriteBufferFor(context.getSourceManager().getMainFileID());
 

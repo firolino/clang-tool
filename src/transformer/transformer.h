@@ -1,5 +1,5 @@
-#ifndef WORKER_HPP
-#define WORKER_HPP
+#ifndef TRANSFORMER_HPP
+#define TRANSFORMER_HPP
 
 #include <clang/ASTMatchers/ASTMatchFinder.h>
 
@@ -10,7 +10,7 @@ namespace clang
     class Rewriter;
 }
 
-class Worker : public clang::ast_matchers::MatchFinder::MatchCallback
+class Transformer : public clang::ast_matchers::MatchFinder::MatchCallback
 {
     protected:
 
@@ -19,7 +19,7 @@ class Worker : public clang::ast_matchers::MatchFinder::MatchCallback
 
     public:
 
-        explicit Worker(clang::ASTContext &context, clang::Rewriter &rewriter);
+        explicit Transformer(clang::ASTContext &context, clang::Rewriter &rewriter);
         
         virtual void start() = 0;
         virtual void print(clang::raw_ostream &stream) = 0;

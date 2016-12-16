@@ -17,8 +17,8 @@ set(CLANG_TOOL_SRC
         consumer/consumer.cc        
         utils/utils.cc  
         
-        worker/worker.cc
-        worker/functioncallworker.cc
+        transformer/transformer.cc
+        transformer/functioncalltransformer.cc
 )
 
 add_executable(clang-tool ${CLANG_TOOL_SRC})

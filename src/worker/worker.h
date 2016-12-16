@@ -7,6 +7,7 @@ namespace clang
 {
     class ASTContext;
     class raw_ostream;
+    class Rewriter;
 }
 
 class Worker : public clang::ast_matchers::MatchFinder::MatchCallback
@@ -14,10 +15,11 @@ class Worker : public clang::ast_matchers::MatchFinder::MatchCallback
     protected:
 
         clang::ASTContext &context;
+        clang::Rewriter &rewriter;
 
     public:
 
-        explicit Worker(clang::ASTContext &context);
+        explicit Worker(clang::ASTContext &context, clang::Rewriter &rewriter);
         
         virtual void start() = 0;
         virtual void print(clang::raw_ostream &stream) = 0;

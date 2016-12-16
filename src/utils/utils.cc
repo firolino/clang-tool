@@ -51,8 +51,11 @@ std::vector<std::string> getCompileArgs(std::vector<clang::tooling::CompileComma
             compileArgs.push_back(arg);
     }
     
-    compileArgs.erase(begin(compileArgs));
-    compileArgs.pop_back();
+    if(compileArgs.empty() == false)
+    {
+        compileArgs.erase(begin(compileArgs));
+        compileArgs.pop_back();
+    }
 
     return compileArgs;
 }

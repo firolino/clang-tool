@@ -11,7 +11,6 @@ using namespace llvm;
 using namespace clang;
 using namespace clang::tooling;
 
-
 int main(int argc, const char **argv)
 {
     llvm::cl::OptionCategory ctCategory("clang-tool options");
@@ -25,12 +24,12 @@ int main(int argc, const char **argv)
             return -1;
         }
 
-        auto compileCommands = optionsParser.getCompilations().getCompileCommands(sourceFile);
+        auto compileCommands = optionsParser.getCompilations().getCompileCommands(getAbsolutePath(sourceFile));
         auto compileArgs = utils::getCompileArgs(compileCommands);
         auto sourcetxt = utils::getSourceCode(sourceFile);
 
         auto frontendAction = new XFrontendAction();
-        utils::customRunToolOnCodeWithArgs(frontendAction, sourcetxt, compileArgs, sourceFile);    
+        utils::customRunToolOnCodeWithArgs(frontendAction, sourcetxt, compileArgs, sourceFile);
     }
 
     return 0;

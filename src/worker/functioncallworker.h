@@ -10,6 +10,7 @@ namespace clang
 {
     class ASTContext;
     class raw_ostream;
+    class Rewriter;
 }
 
 class FunctionCallWorker : public Worker
@@ -20,7 +21,7 @@ class FunctionCallWorker : public Worker
         
     public:
 
-        explicit FunctionCallWorker(clang::ASTContext &context);
+        explicit FunctionCallWorker(clang::ASTContext &context, clang::Rewriter &rewriter);
 
         virtual void start() override;
         virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);

@@ -9,7 +9,7 @@ void XConsumer::HandleTranslationUnit(clang::ASTContext &context)
 {
     rewriter.setSourceMgr(context.getSourceManager(), context.getLangOpts());
     
-    FunctionCallWorker fnworker(context);
+    FunctionCallWorker fnworker(context, rewriter);
         
     fnworker.start();
     fnworker.print(llvm::outs());

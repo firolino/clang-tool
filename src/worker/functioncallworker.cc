@@ -3,9 +3,10 @@
 #include <clang/AST/Decl.h>
 #include <clang/AST/Expr.h>
 #include <clang/ASTMatchers/ASTMatchers.h>
+#include <clang/Rewrite/Core/Rewriter.h>
 
-FunctionCallWorker::FunctionCallWorker(clang::ASTContext &context)
-    : Worker(context)
+FunctionCallWorker::FunctionCallWorker(clang::ASTContext &context, clang::Rewriter &rewriter)
+    : Worker(context, rewriter)
 {}
 
 void FunctionCallWorker::start()

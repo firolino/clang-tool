@@ -17,19 +17,21 @@ int main(int argc, const char **argv)
     CommonOptionsParser optionsParser(argc, argv, ctCategory);
 
     for(auto &sourceFile : optionsParser.getSourcePathList())
-    {    
+    {
         if(utils::fileExists(sourceFile) == false)
         {
             llvm::errs() << "File: " << sourceFile << " does not exist!\n";
             return -1;
         }
 
-        auto compileCommands = optionsParser.getCompilations().getCompileCommands(getAbsolutePath(sourceFile));
-        auto compileArgs = utils::getCompileArgs(compileCommands);
         auto sourcetxt = utils::getSourceCode(sourceFile);
+        auto compileCommands = optionsParser.getCompilations().getCompileCommands(getAbsolutePath(sourceFile));
 
-        auto frontendAction = new XFrontendAction();
-        utils::customRunToolOnCodeWithArgs(frontendAction, sourcetxt, compileArgs, sourceFile);
+        std::vector<std::string> compileArgs = utils::getCompileArgs(compileCommands);
+        compileArgs.push_back("-I" + utils::getClangBuiltInIncludePath(argv[0]));
+
+        auto rppfrontendAction = new XFrontendAction();
+        utils::customRunToolOnCodeWithArgs(rppfrontendAction, sourcetxt, compileArgs, sourceFile);
     }
 
     return 0;

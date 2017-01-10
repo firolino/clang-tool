@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef UTILS_HPP
+#define UTILS_HPP
 
 #include <fstream>
 #include <vector>
@@ -21,8 +21,10 @@ namespace utils
 
 
     bool fileExists(const std::string &file);
-    std::vector<std::string> getCompileArgs(std::vector<clang::tooling::CompileCommand> compileCommands);
+    std::vector<std::string> getCompileArgs(const std::vector<clang::tooling::CompileCommand> &compileCommands);
     std::string getSourceCode(const std::string &sourceFile);
+
+    std::string getClangBuiltInIncludePath(const std::string &fullCallPath);
 }
 
 #endif

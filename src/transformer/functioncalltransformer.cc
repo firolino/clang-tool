@@ -24,15 +24,28 @@ void FunctionCallTransformer::start()
 void FunctionCallTransformer::run(const clang::ast_matchers::MatchFinder::MatchResult &result)
 {
     using namespace clang;
-
+    
+    /*
+        * CallExpr is the function call
+        * FunctionDecl is fhe function definition
+    */
+    
     if(const CallExpr *callExpr = result.Nodes.getNodeAs<CallExpr>("callExpr"))
     {
         if(const FunctionDecl *function = callExpr->getDirectCallee())
         {
             if(result.SourceManager->isInSystemHeader(function->getSourceRange().getBegin()))
                 return;
-                
-            functions.push_back(function->getNameAsString());
+            
+            auto functionName = function->getNameAsString();
+            rewriter.InsertTextAfter(callExpr->getLocStart(), "fn_");
+            
+            if (functions.count(functionName) == 0)
+            {
+                // rewrite definition as well
+                rewriter.InsertTextAfter(function->getLocation(), "fn_");
+                functions.insert(function->getNameAsString());
+            }
         }
     }
 }

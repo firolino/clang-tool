@@ -4,7 +4,7 @@
 #include "transformer.h"
 
 #include <string>
-#include <vector>
+#include <set>
 
 namespace clang
 {
@@ -17,7 +17,7 @@ class FunctionCallTransformer : public Transformer
 {
     private:
         
-        std::vector<std::string> functions;
+        std::set<std::string> functions;
         
     public:
 

@@ -10,7 +10,7 @@ void XConsumer::HandleTranslationUnit(clang::ASTContext &context)
     rewriter.setSourceMgr(context.getSourceManager(), context.getLangOpts());
     
     FunctionCallTransformer fntransformer(context, rewriter);
-        
+    
     fntransformer.start();
     fntransformer.print(llvm::outs());
 

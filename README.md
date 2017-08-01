@@ -20,7 +20,7 @@ A simple example is included in ```src/transformers/functioncalltransformer.cc``
 bin/clang-tool ../examples/simple.cc -- -std=c++11
 ```
 
-Another example can be found in ```finder/integervariablefinder.cc```. Uncomment the ```intFinder``` in ```consumer.cc``` to print all integer variables. More matchers can be found under [2] for writing on finders and transformers.
+Another example can be found in ```finder/integervariablefinder.cc```. Uncomment the ```intFinder``` in ```consumer.cc``` to print all integer variables. More matchers can be found under [2] for writing own finders and transformers.
 
 ### Specifiying compiler arguments
 There are multiple ways to provide your projects' compiler arguments to a clang tool:
@@ -31,11 +31,7 @@ There are multiple ways to provide your projects' compiler arguments to a clang 
 
 * **Compilation Database**
 
-  If your project is CMake-based use ```-DCMAKE_EXPORT_COMPILE_COMMANDS=ON``` in your cmake call. It will generate a ```compile_commands.json``` in your build directory containing your compiler arguments etc. With the json file you don't need to provide ```--`` anymore. clang-tool will automatically use your json file:
-
-  ```bash
-  bin/clang-tool ../examples/simple.cc
-  ```
+  If your project is CMake-based use ```-DCMAKE_EXPORT_COMPILE_COMMANDS=ON``` in your cmake call. It will generate a ```compile_commands.json``` in your build directory containing your compiler arguments etc. With the json file you don't need to provide ```--``` anymore. clang-tool will automatically use your json file.
 
 * **Makefiles**
 
@@ -43,5 +39,6 @@ There are multiple ways to provide your projects' compiler arguments to a clang 
 
 # References
 [1] http://clang.llvm.org/docs/LibTooling.html
+
 [2] http://clang.llvm.org/docs/LibASTMatchersReference.html
 

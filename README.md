@@ -25,17 +25,20 @@ Another example can be found in ```finder/integervariablefinder.cc```. Uncomment
 ### Specifiying compiler arguments
 There are multiple ways to provide your projects' compiler arguments to a clang tool:
 
-* Direct
+* **Direct**
+
   As can be seen in the example above, compiler arguments can be placed directly after ```--```.
 
-* Compilation Database
+* **Compilation Database**
+
   If your project is CMake-based use ```-DCMAKE_EXPORT_COMPILE_COMMANDS=ON``` in your cmake call. It will generate a ```compile_commands.json``` in your build directory containing your compiler arguments etc. With the json file you don't need to provide ```--`` anymore. clang-tool will automatically use your json file:
 
   ```bash
   bin/clang-tool ../examples/simple.cc
   ```
 
-* Makefiles
+* **Makefiles**
+
   If you have an ordinary Makefile based project, use rizsottos awesome tool from https://github.com/rizsotto/Bear and run ```bear make``` on a cleanded project directory. It will generate a ```compile_commands.json``` for you!
 
 # References

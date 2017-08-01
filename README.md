@@ -14,17 +14,27 @@ make
 ```
 
 ## Usage
-A simple example is included in src/transformers/functioncalltransformer.cc that rewriters all function calls from ```functionName()``` to ```fn_functionName()```.
+A simple example is included in ```src/transformers/functioncalltransformer.cc``` that rewriters all function calls from ```functionName()``` to ```fn_functionName()```.
 
 ```bash
 bin/clang-tool ../examples/simple.cc -- -std=c++11
 ```
 
+## Specifiying compiler arguments
+There are multiple ways to provide your projects' compiler arguments to a clang tool.
 
-compiler arguments
-- direct
-- via cdb
-- makefiles
+### Direct
+As can be seen in the example above, compiler arguments can be placed directly after ```--```.
+
+### Compilation Database
+If your project is CMake-based use ```-DCMAKE_EXPORT_COMPILE_COMMANDS=ON``` in your cmake call. It will generate a ```compile_commands.json``` in your build directory containing your compiler arguments etc. With the json file you dont need to provide ```--`` anymore. clang-tool will automatically use your json file:
+
+```bash
+bin/clang-tool ../examples/simple.cc
+```
+
+### Makefiles
+If you have an ordinary Makefile based project, use rizsottos awesome tool from https://github.com/rizsotto/Bear and run ```bear make`` on a cleanded project directory. It will generate a ```compile_commands.json``` for you!
 
 # References
 [1] http://clang.llvm.org/docs/LibTooling.html

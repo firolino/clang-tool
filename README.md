@@ -20,7 +20,7 @@ A simple example is included in ```src/transformers/functioncalltransformer.cc``
 bin/clang-tool ../examples/simple.cc -- -std=c++11
 ```
 
-Another example can be found in ```finder/integervariablefinder.cc```. Uncomment the ```intFinder``` in ```consumer.cc``` to print all integer variables. More matchers can be found under [2] for writing own finders and transformers.
+Another example can be found in ```finder/integervariablefinder.cc```. Uncomment the ```intFinder``` in ```consumer.cc``` to print all integer variables.
 
 ```cpp
 FunctionCallTransformer fntransformer(context, rewriter);
@@ -30,6 +30,8 @@ fntransformer.print(llvm::outs());
 IntegerVariableFinder intFinder(context);
 intFinder.start();
 ```
+
+More matchers for writing own finders and transformers are available under [2].
 
 ### Specifiying compiler arguments
 There are multiple ways to provide your projects' compiler arguments to a clang tool:

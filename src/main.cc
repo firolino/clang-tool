@@ -29,9 +29,11 @@ int main(int argc, const char **argv)
 
         std::vector<std::string> compileArgs = utils::getCompileArgs(compileCommands);
         compileArgs.push_back("-I" + utils::getClangBuiltInIncludePath(argv[0]));
+        for(auto &s : compileArgs)
+            llvm::outs() << s << "\n";
 
-        auto rppfrontendAction = new XFrontendAction();
-        utils::customRunToolOnCodeWithArgs(rppfrontendAction, sourcetxt, compileArgs, sourceFile);
+        auto xfrontendAction = new XFrontendAction();
+        utils::customRunToolOnCodeWithArgs(xfrontendAction, sourcetxt, compileArgs, sourceFile);
     }
 
     return 0;

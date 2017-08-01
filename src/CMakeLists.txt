@@ -13,13 +13,16 @@ set(CLANG_TOOL_SRC
 
         main.cc
         
-        actions/frontendaction.cc        
-        consumer/consumer.cc        
-        utils/utils.cc  
+        actions/frontendaction.cc
+        consumer/consumer.cc
+        utils/utils.cc
         
         transformer/transformer.cc
         transformer/functioncalltransformer.cc
 )
+
+# remove trailing whitespaces
+string(STRIP ${LLVM_LDFLAGS} LLVM_LDFLAGS)
 
 add_executable(clang-tool ${CLANG_TOOL_SRC})
 target_link_libraries(clang-tool ${CLANG_LIBS} ${LLVM_LIBS_CORE} ${LLVM_LDFLAGS})

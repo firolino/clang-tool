@@ -10,6 +10,7 @@
 
 #include <clang/Tooling/Tooling.h>
 #include <clang/Frontend/FrontendActions.h>
+#include "clang/Tooling/CompilationDatabase.h"
 
 namespace utils
 {

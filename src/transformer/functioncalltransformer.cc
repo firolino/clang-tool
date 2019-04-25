@@ -38,7 +38,7 @@ void FunctionCallTransformer::run(const clang::ast_matchers::MatchFinder::MatchR
                 return;
             
             auto functionName = function->getNameAsString();
-            rewriter.InsertTextAfter(callExpr->getLocStart(), "fn_");
+            rewriter.InsertTextAfter(callExpr->getBeginLoc(), "fn_");
             
             if (functions.count(functionName) == 0)
             {

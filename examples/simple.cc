@@ -1,6 +1,18 @@
 #include <iostream>
 using namespace std;
 
+struct _x
+{
+    struct _x  *x;
+    int        y;
+};
+
+int getXXY(struct _x *p)
+{
+    p->x->y;
+    return( p->x->x->y);
+}
+
 int bad_global = -1;
 
 void print()

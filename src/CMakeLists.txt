@@ -18,6 +18,7 @@ set(CLANG_TOOL_SRC
         utils/utils.cc
         
         transformer/transformer.cc
+        transformer/nattransformer.cc
         transformer/functioncalltransformer.cc
         
         finder/finder.cc

@@ -10,6 +10,7 @@ struct _x
 int getXXY(struct _x *p)
 {
     p->x->y;
+    p->x;
     return( p->x->x->y);
 }
 

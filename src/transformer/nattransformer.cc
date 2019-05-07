@@ -30,12 +30,8 @@ void NatTransformer::run(const clang::ast_matchers::MatchFinder::MatchResult &re
         if(result.SourceManager->isInSystemHeader(memExpr->getSourceRange().getBegin()))
             return;
 
-        llvm::outs() <<  memExpr->getMemberDecl()->getDeclName() << "\n";
-
         rewriter.InsertText(memExpr->getSourceRange().getBegin(), "getX(");
         rewriter.InsertText(memExpr->getOperatorLoc(), ")");
-
-        // getLocWithOffset(-1): dont remove - from ->
         rewriter.RemoveText(SourceRange(memExpr->getOperatorLoc(), memExpr->getSourceRange().getEnd().getLocWithOffset(-1)));
     }
 }

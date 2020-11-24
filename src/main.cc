@@ -32,8 +32,8 @@ int main(int argc, const char **argv)
         for(auto &s : compileArgs)
             llvm::outs() << s << "\n";
 
-        auto xfrontendAction = new XFrontendAction();
-        utils::customRunToolOnCodeWithArgs(xfrontendAction, sourcetxt, compileArgs, sourceFile);
+        auto xfrontendAction = std::make_unique<XFrontendAction>();
+        utils::customRunToolOnCodeWithArgs(move(xfrontendAction), sourcetxt, compileArgs, sourceFile);
     }
 
     return 0;

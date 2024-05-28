@@ -17,7 +17,7 @@ std::vector<std::string> getSyntaxOnlyToolArgs(const std::vector<std::string> &e
     return args;
 }
 
-bool customRunToolOnCodeWithArgs(clang::FrontendAction *frontendAction, const llvm::Twine &code,
+bool customRunToolOnCodeWithArgs(std::unique_ptr<clang::FrontendAction> frontendAction, const llvm::Twine &code,
                                  const std::vector<std::string> &args, const llvm::Twine &fileName,
                                  const clang::tooling::FileContentMappings &virtualMappedFiles)
 {
@@ -25,7 +25,8 @@ bool customRunToolOnCodeWithArgs(clang::FrontendAction *frontendAction, const ll
     llvm::StringRef fileNameRef = fileName.toNullTerminatedStringRef(fileNameStorage);
 
     llvm::IntrusiveRefCntPtr<clang::FileManager> files(new clang::FileManager(clang::FileSystemOptions()));
-    clang::tooling::ToolInvocation invocation(getSyntaxOnlyToolArgs(args, fileNameRef), frontendAction, files.get());
+    auto pchContainer = std::make_shared<clang::PCHContainerOperations>();
+    clang::tooling::ToolInvocation invocation(getSyntaxOnlyToolArgs(args, fileNameRef), std::move(frontendAction), files.get(), pchContainer);
 
     llvm::SmallString<1024> codeStorage;
     invocation.mapVirtualFile(fileNameRef, code.toNullTerminatedStringRef(codeStorage));

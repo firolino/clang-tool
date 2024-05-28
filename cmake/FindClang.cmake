@@ -40,6 +40,8 @@ FIND_AND_ADD_CLANG_LIB(clangRewriteFrontend)
 FIND_AND_ADD_CLANG_LIB(clangASTMatchers)
 FIND_AND_ADD_CLANG_LIB(clangToolingCore)
 
+FIND_AND_ADD_CLANG_LIB(clang-cpp)
+
 
 MESSAGE(STATUS "Clang libs: " ${CLANG_LIBS})
 

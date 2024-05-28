@@ -16,7 +16,7 @@ namespace utils
 {
     std::vector<std::string> getSyntaxOnlyToolArgs(const std::vector<std::string> &ExtraArgs, llvm::StringRef FileName);
 
-    bool customRunToolOnCodeWithArgs(clang::FrontendAction *frontendAction, const llvm::Twine &Code,
+    bool customRunToolOnCodeWithArgs(std::unique_ptr<clang::FrontendAction> frontendAction, const llvm::Twine &Code,
                                      const std::vector<std::string> &Args, const llvm::Twine &FileName,
                                      const clang::tooling::FileContentMappings &VirtualMappedFiles = clang::tooling::FileContentMappings());
 

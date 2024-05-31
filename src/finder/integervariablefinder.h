@@ -10,13 +10,11 @@ namespace clang
 
 class IntegerVariableFinder : public Finder
 {
-    public:
+  public:
+    explicit IntegerVariableFinder(clang::ASTContext &context);
 
-        explicit IntegerVariableFinder(clang::ASTContext &context);
-
-        virtual void start() override;
-        virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
+    virtual void start() override;
+    virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
 };
-
 
 #endif

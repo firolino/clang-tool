@@ -4,9 +4,9 @@
 #include <clang/AST/Expr.h>
 #include <clang/ASTMatchers/ASTMatchers.h>
 
-IntegerVariableFinder::IntegerVariableFinder(clang::ASTContext &context)
-    : Finder(context)
-{}
+IntegerVariableFinder::IntegerVariableFinder(clang::ASTContext &context) : Finder(context)
+{
+}
 
 void IntegerVariableFinder::start()
 {
@@ -23,17 +23,17 @@ void IntegerVariableFinder::start()
 void IntegerVariableFinder::run(const clang::ast_matchers::MatchFinder::MatchResult &result)
 {
     using namespace clang;
-    
-    if(const VarDecl *varDecl = result.Nodes.getNodeAs<VarDecl>("intVar"))
+
+    if (const VarDecl *varDecl = result.Nodes.getNodeAs<VarDecl>("intVar"))
     {
-        if(result.SourceManager->isInSystemHeader(varDecl->getSourceRange().getBegin()))
+        if (result.SourceManager->isInSystemHeader(varDecl->getSourceRange().getBegin()))
             return;
-        
+
         auto intVarName = varDecl->getNameAsString();
-        
+
         if (intVarName.empty())
             return;
-        
+
         llvm::outs() << "integer variable: " << varDecl->getNameAsString() << "\n";
     }
 }

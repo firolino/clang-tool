@@ -11,7 +11,7 @@ void print()
 
 int main()
 {
-    print ();
+    print();
     print();
     {
         int a = 0, b = 1;

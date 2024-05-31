@@ -3,30 +3,27 @@
 
 #include "transformer.h"
 
-#include <string>
 #include <set>
+#include <string>
 
 namespace clang
 {
     class ASTContext;
     class raw_ostream;
     class Rewriter;
-}
+} // namespace clang
 
 class FunctionCallTransformer : public Transformer
 {
-    private:
-        
-        std::set<std::string> functions;
-        
-    public:
+  private:
+    std::set<std::string> functions;
 
-        explicit FunctionCallTransformer(clang::ASTContext &context, clang::Rewriter &rewriter);
+  public:
+    explicit FunctionCallTransformer(clang::ASTContext &context, clang::Rewriter &rewriter);
 
-        virtual void start() override;
-        virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
-        virtual void print(clang::raw_ostream &stream) override;
+    virtual void start() override;
+    virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &result);
+    virtual void print(clang::raw_ostream &stream) override;
 };
-
 
 #endif

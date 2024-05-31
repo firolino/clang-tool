@@ -8,18 +8,16 @@ namespace clang
     class ASTContext;
     class raw_ostream;
     class Rewriter;
-}
+} // namespace clang
 
 class Finder : public clang::ast_matchers::MatchFinder::MatchCallback
 {
-    protected:
+  protected:
+    clang::ASTContext &context;
 
-        clang::ASTContext &context;
-
-    public:
-
-        explicit Finder(clang::ASTContext &context);
-        virtual void start() = 0;
+  public:
+    explicit Finder(clang::ASTContext &context);
+    virtual void start() = 0;
 };
 
 #endif

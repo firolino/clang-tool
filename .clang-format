@@ -1,0 +1,11 @@
+---
+BasedOnStyle: Microsoft
+ConstructorInitializerAllOnOneLineOrOnePerLine: "true"
+IndentCaseLabels: "true"
+IndentWidth: "4"
+SortUsingDeclarations: "true"
+TabWidth: "4"
+UseTab: Never
+NamespaceIndentation: All
+---
+

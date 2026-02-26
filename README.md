@@ -1,62 +1,89 @@
 # clang-tool
-clang-tool is a simple and powerful project template for clang-based tools using libtooling[1]. It helps getting started to write standalone tools useful for refactoring, static code analysis, auto-completion etc.
 
-## Installation
-Install the necessary llvm and clang headers and libraries for you system an run:
+A project template for building standalone Clang-based tools using [LibTooling](https://clang.llvm.org/docs/LibTooling.html). It helps getting started writing tools for refactoring, static code analysis, auto-completion, and more.
+
+## Requirements
+
+- LLVM and Clang development headers and libraries (tested with LLVM 21)
+- CMake 3.20+
+
+## Building
 
 ```bash
 git clone https://github.com/firolino/clang-tool
 cd clang-tool
-mkdir build
-cd build
+mkdir build && cd build
 cmake ..
 make
 ```
 
 ## Usage
-A simple example is included in ```src/transformers/functioncalltransformer.cc``` that rewriters all function calls from ```functionName()``` to ```fn_functionName()```.
+
+The included `FunctionCallTransformer` (`src/transformer/functioncalltransformer.cc`) rewrites all function calls from `functionName()` to `fn_functionName()`:
 
 ```bash
-bin/clang-tool ../examples/simple.cc -- -std=c++11
+bin/clang-tool ../examples/simple.cc -- -std=c++17
 ```
 
-Another example can be found in ```finder/integervariablefinder.cc```. Uncomment the ```intFinder``` in ```consumer.cc``` to print all integer variables.
+Output:
+```
+print(..)
+#include <iostream>
+using namespace std;
+
+int bad_global = -1;
+
+void fn_print()
+{
+    cout << "hallo" << endl;
+    int variable = 0;
+}
+
+int main()
+{
+    fn_print();
+    fn_print();
+    ...
+}
+```
+
+Multiple source files are supported:
+```bash
+bin/clang-tool s1.cc s2.cc -- -std=c++17
+```
+
+### Specifying compiler arguments
+
+There are multiple ways to provide compiler arguments:
+
+- **Direct** — place them after `--`, as shown above.
+
+- **Compilation Database** — if your project uses CMake, pass `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON` to generate a `compile_commands.json`. With this file present, `--` is not needed — clang-tool picks it up automatically.
+
+- **Makefiles** — use [Bear](https://github.com/rizsotto/Bear) to generate a `compile_commands.json` from a Makefile project: `bear -- make` on a clean build.
+
+## Architecture
+
+The processing pipeline: **main.cc → FrontendAction → Consumer → Transformer / Finder**
+
+- **`src/main.cc`** — Parses CLI args, creates a `ClangTool`, and runs it.
+- **`src/consumer/consumer.cc`** — `XConsumer::HandleTranslationUnit()` wires up which transformers and finders run on each AST.
+- **`src/transformer/`** — Base class `Transformer` wraps `ASTContext` + `Rewriter`. Subclasses implement `start()` (register AST matchers) and `run()` (match callback).
+- **`src/finder/`** — Base class `Finder` wraps `ASTContext` (read-only, no rewriting). Same `start()`/`run()` pattern.
+
+### Adding a new pass
+
+1. Create a class inheriting from `Transformer` (rewriting) or `Finder` (read-only analysis).
+2. Implement `start()` to register [AST matchers](https://clang.llvm.org/docs/LibASTMatchersReference.html) and `run()` as the match callback.
+3. Instantiate it in `XConsumer::HandleTranslationUnit()` in `src/consumer/consumer.cc`.
+
+Example — to also print all integer variable declarations, uncomment in `consumer.cc`:
 
 ```cpp
-FunctionCallTransformer fntransformer(context, rewriter);
-fntransformer.start();
-fntransformer.print(llvm::outs());
-
 IntegerVariableFinder intFinder(context);
 intFinder.start();
 ```
 
-You can even specifiy more than one source file when calling clang-tool. 
-```bash
-bin/clang-tool s1.cc s2.cc -- -std=c++11
-```
-More matchers for writing own finders and transformers are available under [2].
+## License
 
-### Specifiying compiler arguments
-There are multiple ways to provide your projects' compiler arguments to a clang tool:
-
-* **Direct**
-
-  As can be seen in the example above, compiler arguments can be placed directly after ```--```.
-
-* **Compilation Database**
-
-  If your project is CMake-based use ```-DCMAKE_EXPORT_COMPILE_COMMANDS=ON``` in your cmake call. It will generate a ```compile_commands.json``` in your build directory containing your compiler arguments etc. With the json file you don't need to provide ```--``` anymore. clang-tool will automatically use your json file.
-
-* **Makefiles**
-
-  If you have an ordinary Makefile based project, use rizsottos awesome tool from https://github.com/rizsotto/Bear and run ```bear make``` on a cleanded project directory. It will generate a ```compile_commands.json``` for you!
-
-# TODOs
-Inlude PPCallbacks
-
-# References
-[1] http://clang.llvm.org/docs/LibTooling.html
-
-[2] http://clang.llvm.org/docs/LibASTMatchersReference.html
-
+MIT
